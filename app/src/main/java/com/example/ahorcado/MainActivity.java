@@ -44,21 +44,26 @@ public class MainActivity extends AppCompatActivity {
 
         boolean acierto = false;
 
-        for (int i=0; i<palabraOculta.length(); i++){
-            if (palabraOculta.charAt(i) == letra.charAt(0)){
-                //quita el guión bajo de la letra correspondiente
-                palabraConGuiones = palabraConGuiones.substring(0, 2*i) + letra + palabraConGuiones.substring(2*i+1);
-                
+        if (numeroDeFallos<=palabraOculta.length()) {
+
+            for (int i = 0; i < palabraOculta.length(); i++) {//comprueba el boton pulsado
+                if (palabraOculta.charAt(i) == letra.charAt(0)) {
+                    //quita el guión bajo de la letra correspondiente
+                    palabraConGuiones = palabraConGuiones.substring(0, 2 * i) + letra + palabraConGuiones.substring(2 * i + 1);
+
+                    acierto = true;
+                }
+            }
+
+            if (!palabraConGuiones.contains("_")) {
+                imagenAhorcado.setImageResource(R.drawable.acertastetodo);
+
                 acierto = true;
             }
         }
-        if (!palabraConGuiones.contains("_")){
-            imagenAhorcado.setImageResource(R.drawable.acertastetodo);
-        }
-
         textoConGuiones.setText(palabraConGuiones);
 
-        if (!acierto){
+        if (!acierto){//voy cambiando la imagen segun los fallos
             numeroDeFallos++;
             switch (numeroDeFallos){
                 case 0 : imagenAhorcado.setImageResource(R.drawable.ahorcado_0); break;
